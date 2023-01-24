@@ -1,0 +1,104 @@
+// laravel kurulumu
+composer create-project laravel/laravel example-app
+composer global require laravel/installer
+
+
+laravel new example-app  // laravelde yeni proje
+php artisan serve        // projeyi �al��t�r
+http://127.0.0.1:8000    // localhost adresi
+
+php artisan make:controller UsersController        // UsersController adında bir controller oluşturma
+php artisan make:controller UsersController    // UsersController adında bir controller oluşturma
+// oluşan controller app/Http/Controllers içine yerleşir
+// web.php içinde
+use App\Http\Controllers\UsersController  // yazılır en başa
+
+Route::resource('users',UserController::class) ; // http://127.0.0.1:8000/users   -> UserController class'i içinde varsayılan (index) sayfasını çalıştıracaktır
+// Route::get('listele',[UserController::class, 'listele']) ; 
+view içinde 
+liste.blade.php oluştur
+
+// UserController içine yazılacak örnek functions'lar START
+    public function index(){
+       return 'index sayfası'; 
+    }
+    public function about(){
+       return view('users.about'); 
+    }
+    public function persons(){
+       $person = ['sinan','emine','tuba','baran'] ;
+       return view('users.persons',compact('person')); 
+    }
+    public function students(){
+        $person = ['sinan','emine','tuba','baran'] ;
+        $bday = ['silopi','silopi','silopi','silopi'] ;
+        return view('users.kisiler',compact('person','bday')); 
+    }
+    public function aylar(){     
+        $aylar = ['ocak','subat','mart','nisan'] ;
+        return view('users.aylar')->with('aylar',$aylar); //aylar.blade.php sayfasında $aylar olarak alınır 
+     }
+// UserController içine yazılacak örnek functions'lar END
+
+php artisan route:clear // route cache'ini temizleme 
+php artisan optimize // projeyi yeniden renderleme bu koddan sonra php artisan serve tekrar çalıştırılmalı
+
+
+
+// asset() fonksiyonu START
+    // asset() fonksiyonu front-end/mystyle.css ve front-end/myscript.js dosyalarını ana dizindeki public'te arar
+    <link href="{{ asset('front-end/mystyle.css') }}" rel="stylesheet"> 
+    <script src="{{ asset('front-end/myscript.js') }}"></script>
+// asset() fonksiyonu END
+
+
+// @csrf START
+    // form içierinde kullanılır, <input type="hidden" name="_token" value="tHerYMZ............."> // 40 karakterlik bir token değeri üretir
+    // token oluşturur
+    // form saldırılarını büyük çoğunlukla önler
+    <form action="" method="post">
+        @csrf
+        <input type="text">
+    </form>
+// @csrf END
+
+
+// database START
+    .env içinde 14. satırda DB_DATABASE=ders5_migrate olacak
+    db'de ders5_migrate adında bir veritabanı oluştur
+    php artisan migrate  // ana_dizin/database/migrations içindeki(default) migrationsları db'ye tablo olarak migrate eder (default migrations'ları siler baştan migrate eder)
+    php artisan migrate:fresh // tablolarda yapılan değişikleri migrate etme kodu, fakat bu kod DB içindeki tüm verileri siler silbaştan tabloyu/tabloları DB'ye migrate eder, bunu kullanırken DİKKAT
+
+
+    php artisan make:migration create_tabloadi_table // yeni tablo oluşturma
+    php artisan make:model Tabloadi  -m // hem model hem de migration oluşturma
+
+    Schema::create('tabloadi', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+    });       // database/migrations klasöründe böyle bir şablon oluşturacaktır
+
+    Schema::create('tabloadi', function (Blueprint $table) {
+            $table->id('tabloadiID');
+            $table->string('name');
+            $table->string('description');
+            $table->integer('fiyat');
+            $table->timestamps();
+    });  // bu şekilde özelleştirilebilir  sonra ilk defa oluluştrulduysa php artisan migrate , daha önce oluşturulup üzerinde değişiklik yapıldıysa da php artisan migrate:fresh komutuyla DB'ye migrate edilir
+
+
+// database END
+
+
+// model START
+   php artisan make:model Tabloadi     // sadece model oluşturma
+   php artisan make:model Tabloadi -m // hem model hem de migration oluşturma
+   //  kural 1 : ilk harf büyük olmalı
+   //  kural 2 : tablo adı users ise modal User (tekil) olmalı
+
+   // controller içinde model'e bağlanmak için ilgili controller içine 
+   use App\Models\Order ; // kodu eklenmeli
+
+   php artisan make:controller ProductController -r // hem controller oluşturur hem de (-r) -> gerekli fonksiyonları hazır olarak oluşturur
+
+// model END

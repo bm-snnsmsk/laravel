@@ -1,0 +1,82 @@
+<!-- değişken tanımlama start -->
+@yield('css')
+<!-- değişken tanımlama end -->
+
+
+<!-- değişken değer atama start -->
+@section('content') 
+<div class="border border-1 border-danger">
+ANASAYFA içeriği
+</div> 
+@endsection
+<!-- değişken değer atama end -->
+
+
+<!-- php start -->
+@php
+    $sayi = 1
+@endphp
+<!-- php end -->
+
+
+<!-- if start -->
+@if($sayi == 1)
+    sayi 1
+@else
+    sayi 1 değildir
+@endif
+<!-- if end -->
+
+
+<!-- for start -->
+@for($i = 1 ; $i < 5 ; $i++)
+    geçerli değer  {{ $i }} <br/>    
+@endfor
+<!-- for end -->
+
+<!-- foreach start -->
+@php
+    $users = ['sinan', 'baran', 'kendal']
+@endphp
+
+@if(count($users))
+    @foreach($users as $user)
+        <li>geçerli kullanıcı  {{ $user }}</li>
+    @endforeach
+@endif
+<!-- foreach end -->
+
+<!-- switch kullanımı - 1 start  --> 
+@php
+    $data = 20 ;
+@endphp
+
+@switch($data)
+    @case(1)   numara 1  @break
+    @case(2)   numara 2  @break
+    @case(3)   numara 3  @break
+
+    @default   geçersiz değer
+@endswitch
+<!--switch kullanımı - 1 end  -->
+
+<!-- switch kullanımı - 2 start  --> 
+@php
+    $data = 'admin' ;
+@endphp
+
+@switch($data)
+    @case('admin')   admin sayfası  @break
+    @case('kullanici')   kullanici sayfası  @break
+    @case('teknik')   teknik sayfası  @break
+
+    @default   geçersiz değer
+@endswitch
+<!--switch kullanımı - 2 end  -->
+
+<!-- including start  --> 
+@include('list')  <!-- list.php  --> 
+<!-- including end  -->
+
+
+

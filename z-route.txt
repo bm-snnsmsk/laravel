@@ -1,0 +1,53 @@
+1 - // GET/POST
+Route::get('/greeting',function(){return 'hello world!'});
+ 
+http::localhost:8000/greeting
+
+----------------------------------------------------------------------------------------------------------
+
+2 - // redirect
+Route::redirect('/kullanici','/profil');
+
+http::localhost:8000/kullanici => http::localhost:8000/profil  // girilen sayfa kullanici fakat görüntülenen sayfa profil sayfası
+
+----------------------------------------------------------------------------------------------------------
+
+3 - // router group
+Route::get('profil')->group(function(){
+    Route::get('/a', function(){}) ;
+    Route::get('/b', function(){}) ;
+}) ;
+
+http::localhost:8000/profil
+http::localhost:8000/profil/a
+http::localhost:8000/profil/b
+
+----------------------------------------------------------------------------------------------------------
+
+4 - // prefix group
+Route::prefix('urunler')->group(function(){
+    Route::get('/bilgisayarlar', function(){
+        // http::localhost:8000/urunler/bilgisayarlar
+    }) ;
+}) ;
+
+http::localhost:8000/urunler
+http::localhost:8000/urunler/bilgisayarlar
+
+----------------------------------------------------------------------------------------------------------
+
+5 - // fallback 
+Route::fallback(function(){
+     Route::get('/hata', function(){return 'Aradığınız sayfaya ulaşılamıyor'}) ;
+}) ;
+
+----------------------------------------------------------------------------------------------------------
+
+6 - // name 
+Route::get('sayfaadi', function(){
+     return 'hello world!' ;
+})->name('sayfa') ;
+
+<a href='{{route("sayfa")}}'>SAYFA</a>
+
+----------------------------------------------------------------------------------------------------------

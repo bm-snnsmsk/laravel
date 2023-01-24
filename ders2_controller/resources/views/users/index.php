@@ -1,0 +1,1 @@
+22222   burası index varsayılan sayfası
