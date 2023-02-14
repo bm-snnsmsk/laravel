@@ -3,12 +3,16 @@ composer create-project laravel/laravel example-app
 composer global require laravel/installer
 
 
-laravel new example-app  // laravelde yeni proje
+laravel new example-app  // laravelde yeni proje   // şu iki satır projenin başarılı bir şekilde oluşturulduğunu gösterir
+//  [37;44m INFO [39;49m Application key set successfully.
+//  INFO  Application ready! Build something amazing. 
+
+
 php artisan serve        // projeyi �al��t�r
 http://127.0.0.1:8000    // localhost adresi
 
 php artisan make:controller UsersController        // UsersController adında bir controller oluşturma
-php artisan make:controller UsersController    // UsersController adında bir controller oluşturma
+php artisan make:controller UsersController -r     // UsersController adında bir controller oluşturma ve gerekli fonksiyonları hazır olarak oluşturur
 // oluşan controller app/Http/Controllers içine yerleşir
 // web.php içinde
 use App\Http\Controllers\UsersController  // yazılır en başa
@@ -100,5 +104,12 @@ php artisan optimize // projeyi yeniden renderleme bu koddan sonra php artisan s
    use App\Models\Order ; // kodu eklenmeli
 
    php artisan make:controller ProductController -r // hem controller oluşturur hem de (-r) -> gerekli fonksiyonları hazır olarak oluşturur
+
+
+   protected $table ='users' ; // 'users' isimli tabloyu çağırma Model klasöründe ilgili Model class'ı içinde (migrations içinde ilgili tablo içinde)
+   use App\Models\User ; // modelin kullanılacağı controller içinde
+   use App\Models\Pages ; // modelin kullanılacağı controller içinde (birden fazla model bir controller içinde çağrılabilir ve kullanılabilir)
+
+
 
 // model END

@@ -1,0 +1,39 @@
+.env   // veritabanı ile ilgili bilgileri içerir
+.env.example // .env silinirse şayet .example kısmını silinirse
+
+
+// DB ile ilgili bilgiler
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ders7_dbconnect   // otomatik olarak bu isimde bir DB oluşur // bu isimde mysqladmin'de bir DB oluştur // sonra migrate 
+DB_USERNAME=root
+DB_PASSWORD=
+
+// 1-  veritabanında DB_DATABASE=ders7_dbconnect adında bir veritabanbı oluşturtuktan sonra 
+// 2-  php artisan migrate // bir sorun yoksa eğer DB bağlantısı yapılmış olur yani mevcut migrations'lar (database/migrations) veritabanına gönderilir 
+
+// php artisan make:migration create_product_table  // 'product' adında bir tablo oluştur  
+// php artisan make:migration add_area_product_to_product_table  // 'product' adındaki tabloya, güncel veriler silinmeden sutun eklemeye izin verilir
+// php artisan migrate:rollback         // yapılan değişiklikler geri alınır ???
+// php artisan migrate:fresh         // verileri siler
+// php artisan migrate --seed // hem migrate edilir hem de seeder çalıştırılır
+
+// DB'deki migrations tabloda migrate edilmiş tablolar bulunur
+// Bir tablo yeniden migrate edilmek istenirse, migrations tablosundaki ilgili migrate silinir ve DB'den de bu tablo silinir, sonra tekrar php artisan migrate edilir
+
+
+// website ayarları
+// database/seeders/DatabaseSeeder.php    veya php artisan make:seeder UserSeeder
+    1 - use Illuminate\Support\Facades\DB ;
+    2 - // class içindeki run() içindeki
+
+    DB::table('users')->truncate();  // seeder ilk çalıştığında sorun olmayacak ama sonrasındaki seed çalıştırmasında da sorun olmaması için tablo boşaltılır sonra yeniden seed çalıştrılır
+    $this->call([UserSeed::class]) ; // UserSeed isimli seeder'daki bilgileri de eklesin diye
+    DB::table('users')->insert([
+        'name' => 'sinan şimşek' ,
+        'email' => 'info@ctegitim.com' ,
+        'password' => md5('123') ,
+    ]);
+
+    3 - php artisan db:seed  // mevcut seed'ler çalıştırılır

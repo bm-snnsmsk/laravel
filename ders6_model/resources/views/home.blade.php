@@ -1,0 +1,1 @@
+model ders 6
