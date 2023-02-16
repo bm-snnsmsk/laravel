@@ -1,0 +1,7 @@
+ protected $fillable = [// burda belirtilen alanlar sadece kullanılabilir
+        'name', 
+        'email',
+        'password',
+    ];
+    
+    // protected $quarded =[]; şeklinde içeriği boş bırakılırsa tüm alanlar kullanılabilir

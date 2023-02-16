@@ -16,7 +16,7 @@ DB_PASSWORD=
 // php artisan make:migration create_product_table  // 'product' adında bir tablo oluştur  
 // php artisan make:migration add_area_product_to_product_table  // 'product' adındaki tabloya, güncel veriler silinmeden sutun eklemeye izin verilir
 // php artisan migrate:rollback         // yapılan değişiklikler geri alınır ???
-// php artisan migrate:fresh         // verileri siler
+// php artisan migrate:fresh         //tüm veritabanı verilerini siler
 // php artisan migrate --seed // hem migrate edilir hem de seeder çalıştırılır
 
 // DB'deki migrations tabloda migrate edilmiş tablolar bulunur
